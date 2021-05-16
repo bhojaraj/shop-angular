@@ -7,17 +7,21 @@
     <div class="collapse navbar-collapse">
       <!-- with this collapse, links are not accessible in small screens, so, replace both classes with "navbar-default" if needed -->
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active">
-          <a style="cursor: pointer;" routerLink="/recipes">Recipes</a>
+        <li routerLinkActive="active" *ngIf="isAuthenticated">
+          <a routerLink="/recipes">Recipes</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a routerLink="/auth">Authenticate</a>
         </li>
         <li routerLinkActive="active">
-          <a style="cursor: pointer;" routerLink="/shopping-list"
-            >Shopping List</a
-          >
+          <a routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
+        <li *ngIf="isAuthenticated">
+          <a (click)="onLogout()" role="button">Logout</a>
+        </li>
+        <li class="dropdown" appDropdown *ngIf="isAuthenticated">
           <a class="dropdown-toggle" role="button"
             >Manage <span class="caret"></span
           ></a>
